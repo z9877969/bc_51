@@ -1,0 +1,7 @@
+.main__container {
+  min-width: 900px;
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+  margin: 0 auto;
+}
