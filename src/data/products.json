@@ -5,7 +5,8 @@
     "price": false,
     "currency": "UAH",
     "model": "iPhone 11",
-    "type": "apple"
+    "type": "apple",
+    "sale": true
   },
   {
     "id": 2,
@@ -28,7 +29,8 @@
     "price": "4999",
     "currency": "UAH",
     "model": "Xiaomi Redmi 9A",
-    "type": "xiaomi"
+    "type": "xiaomi",
+    "sale": true
   },
   {
     "id": 5,

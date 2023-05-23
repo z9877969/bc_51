@@ -1,4 +1,7 @@
-html {
+import { injectGlobal } from "@emotion/css";
+
+injectGlobal`
+ html {
   box-sizing: border-box;
 }
 
@@ -44,3 +47,5 @@ img {
 a {
   text-decoration: none;
 }
+
+`;

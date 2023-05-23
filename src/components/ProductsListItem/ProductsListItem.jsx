@@ -1,30 +1,33 @@
 import PropTypes from "prop-types";
+import clsx from "clsx";
 import noImage from "../../assets/img/no-image.png";
+import s from "./ProductsListItem.module.css";
 
-console.log("noImage :>> ", noImage);
+const bool = false;
 
-const ProductsListItem = ({ id, url = noImage, model, price, currency }) => {
+console.log(clsx("class-1", "class-2", bool && "class-3"));
+
+const ProductsListItem = (props) => {
+  const { id, url = noImage, model, price, currency, sale } = props;
   return (
-    <li className="products__item">
-      <div className="products__image-wrapper">
-        <p className="products__sale">Акція</p>
-        <img className="products__image" src={url} alt={model} />
+    <li className={s.item}>
+      <div className={s.imageWrapper}>
+        {/* <p className={`${s.sale}  ${sale ? s.active : ""}`}>Акція</p> */}
+        <p className={clsx(s.sale, sale && s.active)}>Акція</p>
+        {/* true && "qwe" && "null" && 24 */}
+        <img className={s.image} src={url} alt={model} />
       </div>
-      <div className="products__descr">
-        <h3 className="products__model">{model}</h3>
-        <span className="products__price">{price}</span>
-        <span className="products__currency">{currency}</span>
+      <div className={s.descr}>
+        <h3 className={s.model}>{model}</h3>
+        <span className={s.price}>{price}</span>
+        <span className={s.currency}>{currency}</span>
       </div>
-      <button className="products__btn-buy" type="button">
+      <button className={s.btnBuy} type="button">
         Купити
       </button>
     </li>
   );
 };
-
-// ProductsListItem.defaultProps = {
-//   url: noImage,
-// };
 
 ProductsListItem.propTypes = {
   id: PropTypes.number.isRequired,
@@ -32,6 +35,7 @@ ProductsListItem.propTypes = {
   model: PropTypes.string.isRequired,
   price: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   currency: PropTypes.string.isRequired,
+  sale: PropTypes.bool,
 };
 
 export default ProductsListItem;

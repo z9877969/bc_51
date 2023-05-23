@@ -5,13 +5,13 @@
   align-self: flex-start;
 }
 
-.filter-title {
+.title {
   margin: 0;
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-.filter-list {
+.list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -19,25 +19,14 @@
   padding-left: 10px;
 }
 
-.filter-item {
+.item {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-    clip: rect(0 0 0 0);
-  } */
-
-.filter-input {
+.visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -48,14 +37,18 @@
   clip: rect(0 0 0 0);
 }
 
-.filter-label {
+.input {
+  composes: visually-hidden;
+}
+
+.label {
   position: relative;
   display: flex;
   align-items: center;
   font-size: 18px;
 }
 
-.filter-label::before {
+.label::before {
   display: inline-block;
   content: "";
   width: 10px;
@@ -67,7 +60,7 @@
   /* background-color: olive; */
 }
 
-.filter-input:checked + .filter-label::before {
+.input:checked + .label::before {
   border: 2px solid #d9e5f1;
   background-color: #0f7be0;
 }
