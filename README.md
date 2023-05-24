@@ -1,10 +1,12 @@
 # REACT BC_51
 
-## l-02.styles
+## l-03.events
 
-### 1) defaultImage/defaultProps
-### 2) style
-### 3) classes
-### 4) modules (css/composes|scss)
-### 5) clsx
-### 6) styledcomponents/globalStyles/theme
+## // counter
+## 1) events
+## 2) statefull vs stateless
+
+## // shop
+## 3) open cart
+## 4) add product vulue
+## 5) add product to cart

@@ -1,8 +1,9 @@
+import PropTypes from "prop-types";
 import logoImg from "../../assets/img/logo.png";
 import sprite from "../../assets/icons/sprite.svg";
 import styles from "./Header.module.scss";
 
-const Header = () => {
+const Header = ({ openCart }) => {
   return (
     <header className={styles.header}>
       <a href="/" className={styles.logo}>
@@ -13,7 +14,11 @@ const Header = () => {
         <span className={styles.userEmail}>user@mail.com</span>
       </div>
       <div className={styles.cartInfo}>
-        <button type="button" className={styles.btnCart}>
+        <button
+          onClick={() => openCart()}
+          type="button"
+          className={styles.btnCart}
+        >
           <svg>
             <use href={sprite + "#icon-cart"}></use>
           </svg>
@@ -21,6 +26,10 @@ const Header = () => {
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  openCart: PropTypes.func.isRequired,
 };
 
 export default Header;

@@ -1,5 +1,5 @@
 // import "./index.css";
-
+import "./assets/styles/var.css";
 import "./index.styled";
 
 import App from "./components/App/App";

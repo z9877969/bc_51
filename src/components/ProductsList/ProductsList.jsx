@@ -2,7 +2,7 @@ import ProductsListItem from "../ProductsListItem/ProductsListItem";
 import PropTypes from "prop-types";
 import s from "./ProductsList.module.css";
 
-const ProductsList = ({ productsList }) => {
+const ProductsList = ({ productsList, addToCart }) => {
   return (
     <ul className={s.products}>
       {productsList.map((el) => (
@@ -14,6 +14,7 @@ const ProductsList = ({ productsList }) => {
           price={el.price}
           currency={el.currency}
           sale={el.sale}
+          addToCart={addToCart}
         />
       ))}
     </ul>
@@ -22,6 +23,7 @@ const ProductsList = ({ productsList }) => {
 
 ProductsList.propTypes = {
   productsList: PropTypes.array.isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductsList;

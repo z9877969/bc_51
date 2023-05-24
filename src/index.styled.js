@@ -48,4 +48,11 @@ a {
   text-decoration: none;
 }
 
+button {
+  transform: scale(1);
+  transition: transform 200ms linear;
+  &:active {
+  transform: scale(0.95);
+}
+}
 `;
