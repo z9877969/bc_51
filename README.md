@@ -1,12 +1,9 @@
 # REACT BC_51
 
-## l-03.events
+## l-04.forms
 
-## // counter
-## 1) events
-## 2) statefull vs stateless
-
-## // shop
-## 3) open cart
-## 4) add product vulue
-## 5) add product to cart
+## 1. forms /для чого потрібні/
+## 2. controled inputs
+## 3. text || radio || checkbox
+## 4. submit to collection
+## 5. select for todos filter
