@@ -1,31 +1,22 @@
 import PropTypes from "prop-types";
+import TodoItem from "../TodoItem/TodoItem";
 import clsx from "clsx";
 import s from "./TodoList.module.scss";
 
-const TodoList = ({ todo = [], removeTodo, updateTodoStatus }) => {
+const TodoList = ({ todo, removeTodo, updateTodoStatus }) => {
   return (
     <ul className={s.container}>
       {todo.map(({ title, descr, id, date, priority, isDone }) => (
-        <li key={id} className={s.toDoItem}>
-          <p className={s.date}>{date}</p>
-          <h3 className={clsx(s.title, isDone && s.isDone)}>{title}</h3>
-          <p className={clsx(s.priority, isDone && s.isDone)}>
-            PRIORITY - {priority}
-          </p>
-          <p className={clsx(s.descr, isDone && s.isDone)}>{descr}</p>
-          <label className={s.status}>
-            <input
-              type="checkbox"
-              name="status"
-              onChange={(e) => updateTodoStatus(id)}
-              checked={isDone}
-            />
-            Done
-          </label>
-          <button className={s.todoBtn} onClick={(e) => removeTodo(id)}>
-            Remove
-          </button>
-        </li>
+        <TodoItem
+          title={title}
+          descr={descr}
+          id={id}
+          date={date}
+          priority={priority}
+          isDone={isDone}
+          removeTodo={removeTodo}
+          updateTodoStatus={updateTodoStatus}
+        />
       ))}
     </ul>
   );
@@ -43,6 +34,22 @@ TodoList.propTypes = {
     })
   ),
   removeTodo: PropTypes.func.isRequired,
+  updateTodoStatus: PropTypes.func.isRequired,
 };
 
 export default TodoList;
+
+// const obj = {
+//   a: "qwe",
+// };
+
+// const val1 = obj.a;
+// const val2 = obj["a"];
+
+// const key = "a";
+// const val3 = obj[key];
+
+// const obj2 = { b: "qwe" };
+
+// const key2 = "b";
+// const obj3 = { [key2]: "qwe" };

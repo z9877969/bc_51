@@ -1,4 +1,5 @@
 import "./index.scss";
+import "./vanila-js";
 
 import App from "./components/App/App";
 import React from "react";

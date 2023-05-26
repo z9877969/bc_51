@@ -3,9 +3,11 @@ import clsx from "clsx";
 import { nanoid } from "nanoid";
 import s from "./TodoForm.module.scss";
 
-console.log("nanoid() :>> ", nanoid());
-
 class TodoForm extends Component {
+  #idLow = nanoid();
+  #idMedium = nanoid();
+  #idHigh = nanoid();
+
   state = {
     date: "2023-05-25",
     title: "",
@@ -15,26 +17,16 @@ class TodoForm extends Component {
   };
 
   handleChange = (e) => {
-    const { name, value, checked, type } = e.target;
+    const { name, value } = e.target;
 
-    if (type === "checkbox") {
-      this.setState((prevState) => {
-        return {
-          [name]: checked
-            ? [...prevState[name], value]
-            : prevState[name].filter((el) => el !== value),
-        };
-      });
-      return;
-    }
-
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [name]: value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const newTodo = { ...this.state, isDone: false, id: nanoid() };
-    this.props.addTodo(newTodo);
+    // const newTodo = { ...this.state, isDone: false, id: nanoid() };
+    // this.props.addTodo(newTodo);
+    this.props.onSubmit(this.state);
   };
 
   render() {
@@ -74,7 +66,7 @@ class TodoForm extends Component {
         <div className={s.labelWrapper}>
           <div className={s.radioWrapper}>
             <input
-              id="formRadioLow"
+              id={this.#idLow}
               className={s.input}
               type="radio"
               name="priority"
@@ -82,13 +74,13 @@ class TodoForm extends Component {
               checked={this.state.priority === "low"}
               onChange={this.handleChange}
             />
-            <label className={clsx(s.label, s.radio)} htmlFor="formRadioLow">
+            <label className={clsx(s.label, s.radio)} htmlFor={this.#idLow}>
               Low
             </label>
           </div>
           <div className={s.radioWrapper}>
             <input
-              id="formRadioMedium"
+              id={this.#idMedium}
               className={s.input}
               type="radio"
               name="priority"
@@ -96,13 +88,13 @@ class TodoForm extends Component {
               checked={this.state.priority === "medium"}
               onChange={this.handleChange}
             />
-            <label className={clsx(s.label, s.radio)} htmlFor="formRadioMedium">
+            <label className={clsx(s.label, s.radio)} htmlFor={this.#idMedium}>
               Medium
             </label>
           </div>
           <div className={s.radioWrapper}>
             <input
-              id="formRadioHigh"
+              id={this.#idHigh}
               className={s.input}
               type="radio"
               name="priority"
@@ -110,7 +102,7 @@ class TodoForm extends Component {
               checked={this.state.priority === "high"}
               onChange={this.handleChange}
             />
-            <label className={clsx(s.label, s.radio)} htmlFor="formRadioHigh">
+            <label className={clsx(s.label, s.radio)} htmlFor={this.#idHigh}>
               High
             </label>
           </div>

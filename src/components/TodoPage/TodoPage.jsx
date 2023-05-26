@@ -12,7 +12,8 @@ class TodoPage extends Component {
   };
 
   addTodo = (todo) => {
-    this.setState((prevState) => ({ todo: [...prevState.todo, todo] }));
+    const newTodo = { ...todo, isDone: false, id: Date.now() };
+    this.setState((prevState) => ({ todo: [...prevState.todo, newTodo] }));
   };
 
   removeTodo = (id) => {
@@ -41,14 +42,15 @@ class TodoPage extends Component {
   };
 
   render() {
-
     // createFunction
 
     const filteredTodo = this.filterTodo();
 
     return (
       <>
-        <ToDoForm addTodo={this.addTodo} />
+        <ToDoForm onSubmit={this.addTodo} />
+        {/* <ToDoForm onSubmit={window.alert} />
+        <ToDoForm onSubmit={console.log} /> */}
         <PrioritySelect
           filter={this.state.filter}
           changeFilter={this.changeFilter}
