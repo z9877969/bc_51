@@ -1,9 +1,6 @@
 # REACT BC_51
 
-## l-04.forms
+## l-06.life-cycles
 
-## 1. forms /для чого потрібні/
-## 2. controled inputs
-## 3. text || radio || checkbox
-## 4. submit to collection
-## 5. select for todos filter
+### 1) life-cycles method - https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+### 2) localStorage

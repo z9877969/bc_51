@@ -1,34 +1,58 @@
-import { Component } from "react";
+import { Component, PureComponent } from "react";
+
 import clsx from "clsx";
 import { nanoid } from "nanoid";
 import s from "./TodoForm.module.scss";
 
-console.log("nanoid() :>> ", nanoid());
+// class Test {
+//   constructor() {
+//     console.log("object");
+//   }
+// }
 
-class TodoForm extends Component {
+// const test = new Test();
+
+class TodoForm extends PureComponent {
   state = {
     date: "2023-05-25",
-    title: "",
-    descr: "",
-    priority: "", // low | high | medium
-    dayPeriods: [], // [a, i] | [a, m] | [a, m, i]
+    descr: "Hello!",
+    priority: "",
   };
 
+  // static getDerivedStateFromProps(props, state) {
+  //   console.log("TodoForm_getDerivedStateFromProps");
+  //   // console.log("state :>> ", state);
+  //   // console.log("props :>> ", props);
+  //   const newState = state.descr ? { date: "2023-06-01" } : null;
+  //   return newState;
+  // }
+
+  componentDidMount() {
+    // fetch -> setState({data})
+    // addEventListner
+    // setInterval -> setState({count})
+    console.log("TodoForm CDM");
+  }
+
+  // shouldComponentUpdate(newProps, newState) {
+  //   console.log("TodoForm shouldComponentUpdate");
+  //   // console.log("newProps :>> ", newProps);
+  //   // console.log("newState :>> ", newState);
+  //   // return true;
+  //   if (
+  //     newProps.addTodo === this.props.addTodo &&
+  //     newState.date === this.state.date &&
+  //     newState.descr === this.state.descr &&
+  //     newState.priority === this.state.priority
+  //   )
+  //     return false; // render close
+
+  //   return true; // return open
+  // }
+
   handleChange = (e) => {
-    const { name, value, checked, type } = e.target;
-
-    if (type === "checkbox") {
-      this.setState((prevState) => {
-        return {
-          [name]: checked
-            ? [...prevState[name], value]
-            : prevState[name].filter((el) => el !== value),
-        };
-      });
-      return;
-    }
-
-    this.setState({ [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   };
 
   handleSubmit = (e) => {
@@ -38,6 +62,8 @@ class TodoForm extends Component {
   };
 
   render() {
+    console.log("Render TodoForm");
+
     return (
       <form className={s.form} onSubmit={this.handleSubmit}>
         <label className={s.label}>
@@ -47,16 +73,6 @@ class TodoForm extends Component {
             name="date"
             type="date"
             value={this.state.date}
-            onChange={this.handleChange}
-          />
-        </label>
-        <label className={s.label}>
-          <span> Title </span>
-          <input
-            className={s.input}
-            type="text"
-            name="title"
-            value={this.state.title}
             onChange={this.handleChange}
           />
         </label>
@@ -115,38 +131,6 @@ class TodoForm extends Component {
             </label>
           </div>
         </div>
-        <div>
-          <label>
-            Morning
-            <input
-              type="checkbox"
-              name="dayPeriods"
-              value="morning"
-              checked={this.state.dayPeriods.includes("morning")}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Afternoon
-            <input
-              type="checkbox"
-              name="dayPeriods"
-              value="afternoon"
-              checked={this.state.dayPeriods.includes("afternoon")}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Evening
-            <input
-              type="checkbox"
-              name="dayPeriods"
-              value="evening"
-              checked={this.state.dayPeriods.includes("evening")}
-              onChange={this.handleChange}
-            />
-          </label>
-        </div>
         <button className={s.submit} type="submit">
           Ok
         </button>
@@ -156,36 +140,3 @@ class TodoForm extends Component {
 }
 
 export default TodoForm;
-
-// const options = [
-//   {
-//     label: "Date",
-//     type: "date",
-//     name: "date",
-//     placeholder: null,
-//   },
-//   {
-//     label: "Title",
-//     type: "text",
-//     name: "title",
-//     placeholder: "Input title...",
-//   },
-// ];
-
-// const Form = ({ iS, onSubmit, options }) => {
-//   const hTextChange = () => {};
-//   const hDateChange = () => {};
-//   const hRadioChange = () => {};
-//   const hFileChange = () => {};
-
-//   return (
-//     <form>
-//       {options.map((el) => (
-//         <label htmlFor="">
-//           {el.label}
-//           <input type={el.type} name={el.name} placeholder={el.placeholder} />
-//         </label>
-//       ))}
-//     </form>
-//   );
-// };

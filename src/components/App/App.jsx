@@ -9,7 +9,3 @@ const App = () => {
 };
 
 export default App;
-
-// state = {count: 0}
-// setState({count: 25})
-// setState((prevState) => {return {count: prevState.count + 20}})
