@@ -1,15 +1,7 @@
-html {
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
 body {
+  overflow-x: hidden;
   margin: 0;
+  padding-bottom: 20px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -25,15 +17,19 @@ code {
 h1,
 h2,
 h3,
-p,
 ul,
-li {
+li,
+p {
   margin: 0;
 }
 
 ul {
+  padding: 0;
   list-style: none;
-  padding-left: 0;
+}
+
+button:active {
+  transform: scale(0.95);
 }
 
 img {
@@ -41,10 +37,6 @@ img {
   width: 100%;
 }
 
-a {
-  text-decoration: none;
-}
-
-button:active {
-  transform: scale(0.95);
+.active {
+  color: red;
 }

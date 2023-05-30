@@ -1,0 +1,109 @@
+// form styles
+.form {
+  width: 100%;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(155, 79, 79);
+}
+
+.title {
+  text-align: center;
+}
+
+.input {
+  width: 300px;
+  height: 40px;
+}
+// form styles -END
+// =
+// news list styles
+.news {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 900px;
+  margin: 0 auto;
+  padding: 0 5px;
+}
+
+.item {
+  width: 440px;
+  display: flex;
+  flex-direction: column;
+  color: antiquewhite;
+  margin-bottom: 20px;
+}
+
+.item a {
+  display: flex;
+  flex-direction: column;
+  color: antiquewhite;
+  margin-bottom: 20px;
+}
+
+.img {
+  height: 200px;
+}
+
+.textWrapper {
+  position: relative;
+  height: 200px;
+  padding: 10px;
+  background-color: rgb(5, 3, 3);
+  overflow: hidden;
+}
+
+.textWrapper:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(180deg, transparent, #080808 50%);
+}
+
+.title,
+.author,
+.date {
+  margin-bottom: 10px;
+}
+//   news list styles -END
+// =
+//   button more styles -END
+.btn {
+  display: block;
+  margin: 0 auto;
+  color: antiquewhite;
+  font-size: 30px;
+  padding: 10px 25px;
+  background-color: rgb(49, 60, 124);
+  border: none;
+  border-radius: 10px;
+}
+//   button more styles -END
+// =
+//   modal styles -END
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000075;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  padding: 20px 15px;
+  background-color: green;
+
+  & a {
+    // text-decoration: none;
+    color: antiquewhite;
+  }
+}
+//   modal styles -END

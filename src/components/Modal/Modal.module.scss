@@ -1,0 +1,21 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000075;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  padding: 20px 15px;
+  background-color: green;
+
+  & a {
+    // text-decoration: none;
+    color: antiquewhite;
+  }
+}

@@ -1,16 +1,12 @@
 import "./index.scss";
 
-import App from "./components/App/App";
-import ErrorBoundary from "./components/ErrorBoundary";
+import App from "./components/App";
 import React from "react";
 import ReactDOM from "react-dom/client";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
 root.render(
-  // <React.StrictMode>
-  <ErrorBoundary>
+  <React.StrictMode>
     <App />
-  </ErrorBoundary>
-  // </React.StrictMode>
+  </React.StrictMode>
 );
