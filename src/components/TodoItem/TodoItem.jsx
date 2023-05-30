@@ -1,6 +1,6 @@
 import { Component } from "react";
 import clsx from "clsx";
-import s from "./TodoList.module.scss";
+import s from "./TodoItem.module.scss";
 
 class TodoItem extends Component {
   #intervalId = null;

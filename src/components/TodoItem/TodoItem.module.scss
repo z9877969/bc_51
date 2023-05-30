@@ -1,0 +1,44 @@
+.toDoItem {
+  padding: 10px;
+  background-color: green;
+  /* background-color: rgb(48, 142, 144); */
+  color: rgb(61, 56, 10);
+  border: 1px solid rgb(6, 32, 6);
+  border-radius: 8px;
+}
+
+.date,
+.title,
+.descr,
+.priority {
+  padding: 5px;
+}
+
+.title,
+.priority,
+.descr {
+  &.isDone {
+    text-decoration: line-through;
+  }
+}
+
+.todoBtn {
+  display: block;
+  width: 45%;
+  padding: 6px 25px;
+  margin: 0 auto;
+  background-color: rgb(233, 227, 228);
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  fill: darkblue;
+}

@@ -1,6 +1,8 @@
 # REACT BC_51
 
-## l-06.life-cycles
+## l-08.hooks-1
 
-### 1) life-cycles method - https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
-### 2) localStorage
+### 1) useState
+### 2) useEffect
+### 3) useRef (ref/interval)
+### 4) useLocalStorage

@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-import TodoItem from "./TodoItem";
-import clsx from "clsx";
+import TodoItem from "../TodoItem/TodoItem";
 import s from "./TodoList.module.scss";
 
 const TodoList = ({ todo = [], removeTodo, updateTodoStatus }) => {

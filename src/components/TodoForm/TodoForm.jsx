@@ -1,54 +1,14 @@
-import { Component, PureComponent } from "react";
-
+import { PureComponent } from "react";
 import clsx from "clsx";
 import { nanoid } from "nanoid";
 import s from "./TodoForm.module.scss";
 
-// class Test {
-//   constructor() {
-//     console.log("object");
-//   }
-// }
-
-// const test = new Test();
-
 class TodoForm extends PureComponent {
   state = {
     date: "2023-05-25",
-    descr: "Hello!",
+    descr: "",
     priority: "",
   };
-
-  // static getDerivedStateFromProps(props, state) {
-  //   console.log("TodoForm_getDerivedStateFromProps");
-  //   // console.log("state :>> ", state);
-  //   // console.log("props :>> ", props);
-  //   const newState = state.descr ? { date: "2023-06-01" } : null;
-  //   return newState;
-  // }
-
-  componentDidMount() {
-    // fetch -> setState({data})
-    // addEventListner
-    // setInterval -> setState({count})
-    console.log("TodoForm CDM");
-  }
-
-  // shouldComponentUpdate(newProps, newState) {
-  //   console.log("TodoForm shouldComponentUpdate");
-  //   // console.log("newProps :>> ", newProps);
-  //   // console.log("newState :>> ", newState);
-  //   // return true;
-  //   if (
-  //     newProps.addTodo === this.props.addTodo &&
-  //     newState.date === this.state.date &&
-  //     newState.descr === this.state.descr &&
-  //     newState.priority === this.state.priority
-  //   )
-  //     return false; // render close
-
-  //   return true; // return open
-  // }
 
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,8 +22,6 @@ class TodoForm extends PureComponent {
   };
 
   render() {
-    console.log("Render TodoForm");
-
     return (
       <form className={s.form} onSubmit={this.handleSubmit}>
         <label className={s.label}>
