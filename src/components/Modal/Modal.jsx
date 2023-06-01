@@ -1,5 +1,8 @@
 import { Component } from "react";
+import { createPortal } from "react-dom";
 import s from "./Modal.module.scss";
+
+const modalRoot = document.querySelector("#modal-root");
 
 // = ({ closeModal }) =>
 class Modal extends Component {
@@ -24,14 +27,15 @@ class Modal extends Component {
 
   render() {
     const { url, title } = this.props.modalData;
-    return (
+    return createPortal(
       <div className={s.backdrop} onClick={this.handleBackdropClick}>
         <h1 className={s.title}>
           <a href={url} target="_blank" rel="noreferrer">
             {title}
           </a>
         </h1>
-      </div>
+      </div>,
+      modalRoot
     );
   }
 }

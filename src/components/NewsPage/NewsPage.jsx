@@ -1,19 +1,18 @@
 import { Component } from "react";
 import Modal from "../Modal/Modal";
 import { getSearchNewsApi } from "../../services/newsApi";
-// import newslist from "../../data/news.json";
+import newslist from "../../data/news.json";
 import s from "./NewsPage.module.scss";
 
 class NewsPage extends Component {
   state = {
-    news: [], // [1,2,3]
-    page: 1, // 3
+    news: newslist,
+    page: 1,
     searchCopy: null,
-    totalResults: 0, //
+    totalResults: 0,
     isLoading: false,
-    error: null, // "message"
-    isModalOpen: false,
-    modalData: null, // data
+    error: null,
+    modalData: null,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -54,26 +53,13 @@ class NewsPage extends Component {
     this.setState((prev) => ({ page: prev.page + 1 }));
   };
 
-  setModalData = (modalData) => {
+  setModalData = (modalData = null) => {
     this.setState({ modalData });
   };
 
-  openModal = () => {
-    this.setState({ isModalOpen: true });
-  };
-
-  handleOpenModal = (data) => {
-    // this.openModal();
-    this.setModalData(data);
-  };
-
-  closeModal = () => {
-    this.setState({ modalData: null });
-  };
-
   render() {
-    // console.log("Render NewsPage");
     const { news, isLoading, error, totalResults, modalData } = this.state;
+    
     return (
       <>
         {isLoading && <h1>Loading...</h1>}
@@ -86,7 +72,7 @@ class NewsPage extends Component {
                 key={idx}
                 className={s.item}
                 onClick={() =>
-                  this.handleOpenModal({ title: item.title, url: item.url })
+                  this.setModalData({ title: item.title, url: item.url })
                 }
               >
                 <img className={s.img} src={item.urlToImage} alt="" />
@@ -106,7 +92,7 @@ class NewsPage extends Component {
           </button>
         )}
         {modalData && (
-          <Modal closeModal={this.closeModal} modalData={modalData} />
+          <Modal closeModal={this.setModalData} modalData={modalData} />
         )}
       </>
     );
@@ -114,3 +100,16 @@ class NewsPage extends Component {
 }
 
 export default NewsPage;
+
+// if (status === "pending" || status === "resolved") {
+//   return (
+//     <>
+//       {status === "pending" && <h1>Loading...</h1>}
+//       <ul>
+//         <li></li>
+//         {/* 24 */}
+//       </ul>
+//     </>
+//   );
+// }
+// if (status === "rejected") return <h1>error message</h1>;
