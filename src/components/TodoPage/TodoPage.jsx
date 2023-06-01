@@ -1,73 +1,96 @@
-import { Component } from "react";
+import { Component, useEffect, useState } from "react";
+
 import PrioritySelect from "../PrioritySelect/PrioritySelect";
 import ToDoForm from "../TodoForm/TodoForm";
 import ToDoList from "../TodoList/TodoList";
 
-class TodoPage extends Component {
-  state = {
-    todo: [],
-    filter: "all",
+const TodoPage = () => {
+  const [todo, setTodo] = useState(
+    () => JSON.parse(localStorage.getItem("todo")) || []
+  );
+  const [filter, setFilter] = useState("all");
+
+  const addTodo = (todo) => {
+    const newTodo = { ...todo, isDone: false, id: Date.now() };
+    setTodo((prevTodo) => [...prevTodo, newTodo]);
   };
 
-  componentDidMount() {
-    this.setState({
-      todo: JSON.parse(localStorage.getItem("todo")) || [],
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.todo !== this.state.todo) {
-      localStorage.setItem("todo", JSON.stringify(this.state.todo));
-    }
-  }
-
-  addTodo = (todo) => {
-    this.setState((prevState) => ({ todo: [...prevState.todo, todo] }));
+  const removeTodo = (id) => {
+    setTodo((prevTodo) => prevTodo.filter((el) => el.id !== id));
   };
 
-  removeTodo = (id) => {
-    this.setState((prevState) => ({
-      todo: prevState.todo.filter((el) => el.id !== id),
-    }));
+  const updateTodoStatus = (id) => {
+    setTodo((prevTodo) =>
+      prevTodo.map((el) => (el.id !== id ? el : { ...el, isDone: !el.isDone }))
+    );
   };
 
-  updateTodoStatus = (id) => {
-    this.setState((prevState) => ({
-      todo: prevState.todo.map((el) =>
-        el.id !== id ? el : { ...el, isDone: !el.isDone }
-      ),
-    }));
+  const changePriority = (e) => {
+    setFilter(e.target.value);
   };
 
-  changeFilter = (e) => {
-    const { value } = e.target;
-    this.setState({ filter: value });
-  };
-
-  filterTodo = () => {
-    const { todo, filter } = this.state;
+  const filterTodo = () => {
     if (filter === "all") return todo;
     return todo.filter((el) => el.priority === filter);
   };
 
-  render() {
-    const filteredTodo = this.filterTodo();
+  const filteredTodo = filterTodo();
 
-    return (
-      <>
-        <ToDoForm addTodo={this.addTodo} />
-        <PrioritySelect
-          filter={this.state.filter}
-          changeFilter={this.changeFilter}
-        />
-        <ToDoList
-          todo={filteredTodo}
-          removeTodo={this.removeTodo}
-          updateTodoStatus={this.updateTodoStatus}
-        />
-      </>
-    );
-  }
-}
+  // useEffect(() => {
+  //   console.log("useEffect");
+  // });
+
+  // useEffect(() => {
+  //   console.log("useEffect []");
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("useEffect [filter]");
+  // }, [filter, todo]);
+
+  // useEffect(() => {
+  //   const savedTodo = JSON.parse(localStorage.getItem("todo")) || [];
+  //   setTodo(savedTodo);
+  // }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todo", JSON.stringify(todo));
+  }, [todo]);
+
+  return (
+    <>
+      <ToDoForm addTodo={addTodo} />
+      <PrioritySelect filter={filter} changeFilter={changePriority} />
+      <ToDoList
+        todo={filteredTodo}
+        removeTodo={removeTodo}
+        updateTodoStatus={updateTodoStatus}
+      />
+    </>
+  );
+};
 
 export default TodoPage;
+
+// const bar = () => {};
+
+// // foo(bar())
+
+// count = 1;
+
+// const useS = (iV) => {
+//   let data;
+//   if (count === 1) {
+//     data = typeof iV === "function" ? iV() : iV;
+//   }
+
+//   const setData = (value) => {
+//     data = value;
+//   };
+
+//   return [data, setData];
+// };
+
+// const [d, sD] = useS(bar());
+
+// setData(bar())

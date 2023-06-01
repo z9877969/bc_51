@@ -23,7 +23,7 @@ TodoList.propTypes = {
       date: PropTypes.string.isRequired,
       descr: PropTypes.string.isRequired,
       priority: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       isDone: PropTypes.bool.isRequired,
     })
   ),
