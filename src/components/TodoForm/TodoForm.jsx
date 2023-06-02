@@ -1,36 +1,24 @@
 import clsx from "clsx";
+import { memo } from "react";
 import s from "./TodoForm.module.scss";
-import { useState } from "react";
+import { useIsOpenContext } from "../../context/IsOpenProvider";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+
+const initialState = {
+  date: "2023-06-01",
+  descr: "",
+  priority: "",
+};
 
 const TodoForm = ({ addTodo }) => {
-  // 1st variant form
-  // const [date, setDate] = useState("2023-06-01");
-  // const [descr, setDescr] = useState("");
-  // const [priority, setPriority] = useState("");
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   switch (name) {
-  //     case "date":
-  //       setDate(value);
-  //       break;
-  //     case "descr":
-  //       setDescr(value);
-  //       break;
-  //     case "priority":
-  //       setPriority(value);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
-  // 2nd variant form
-  const [form, setForm] = useState({
-    date: "2023-06-01",
-    descr: "",
-    priority: "",
-  });
+  // addTodo -> ref1 | ref2
+  // const [form, setForm] = useState({
+  //   date: "2023-06-01",
+  //   descr: "",
+  //   priority: "",
+  // });
+  const { isOpen } = useIsOpenContext();
+  const [form, setForm] = useLocalStorage(initialState, "todoForm");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,10 +30,14 @@ const TodoForm = ({ addTodo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addTodo(form);
+    setForm(initialState);
   };
+
+  console.log("Render Form");
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
+      <h1>Is open - {`${isOpen}`}</h1>
       <label className={s.label}>
         <span> Date </span>
         <input
@@ -118,4 +110,4 @@ const TodoForm = ({ addTodo }) => {
   );
 };
 
-export default TodoForm;
+export default memo(TodoForm); // (props) => { cach + return <TodoForm {...props} />}
