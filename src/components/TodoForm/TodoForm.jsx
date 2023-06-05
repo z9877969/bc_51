@@ -1,8 +1,7 @@
+import { memo, useState } from "react";
+
 import clsx from "clsx";
-import { memo } from "react";
 import s from "./TodoForm.module.scss";
-import { useIsOpenContext } from "../../context/IsOpenProvider";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const initialState = {
   date: "2023-06-01",
@@ -11,14 +10,12 @@ const initialState = {
 };
 
 const TodoForm = ({ addTodo }) => {
-  // addTodo -> ref1 | ref2
-  // const [form, setForm] = useState({
-  //   date: "2023-06-01",
-  //   descr: "",
-  //   priority: "",
-  // });
-  const { isOpen } = useIsOpenContext();
-  const [form, setForm] = useLocalStorage(initialState, "todoForm");
+  const [form, setForm] = useState({
+    date: "2023-06-01",
+    descr: "",
+    priority: "",
+  });
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,11 +30,8 @@ const TodoForm = ({ addTodo }) => {
     setForm(initialState);
   };
 
-  console.log("Render Form");
-
   return (
     <form className={s.form} onSubmit={handleSubmit}>
-      <h1>Is open - {`${isOpen}`}</h1>
       <label className={s.label}>
         <span> Date </span>
         <input
@@ -110,4 +104,4 @@ const TodoForm = ({ addTodo }) => {
   );
 };
 
-export default memo(TodoForm); // (props) => { cach + return <TodoForm {...props} />}
+export default memo(TodoForm); 

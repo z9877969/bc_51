@@ -1,8 +1,7 @@
 import "./index.scss";
 
 import App from "./components/App/App";
-import ErrorBoundary from "./components/ErrorBoundary";
-import IsOpenProvider from "./context/IsOpenProvider";
+import { BrowserRouter } from "react-router-dom";
 import LoaderProvider from "./context/LoaderProvider";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -11,12 +10,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   // <React.StrictMode>
-  <ErrorBoundary>
+  <BrowserRouter>
     <LoaderProvider>
-      <IsOpenProvider>
-        <App />
-      </IsOpenProvider>
+      <App />
     </LoaderProvider>
-  </ErrorBoundary>
+  </BrowserRouter>
   // </React.StrictMode>
 );

@@ -1,14 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
 
-import PrioritySelect from "../PrioritySelect/PrioritySelect";
-import ToDoForm from "../TodoForm/TodoForm";
-import ToDoList from "../TodoList/TodoList";
-import { useIsOpenContext } from "../../context/IsOpenProvider";
-import { useTodo } from "../../hooks/useTodo";
+import PrioritySelect from "../components/PrioritySelect/PrioritySelect";
+import ToDoForm from "../components/TodoForm/TodoForm";
+import ToDoList from "../components/TodoList/TodoList";
+import { useTodo } from "../hooks/useTodo";
 
 const TodoPage = () => {
-  const { setIsOpen } = useIsOpenContext();
-
   const { todo, addTodo, removeTodo, updateTodoStatus } = useTodo();
   const [filter, setFilter] = useState("all");
 
@@ -18,16 +15,11 @@ const TodoPage = () => {
 
   const filteredTodo = useMemo(() => {
     if (filter === "all") return todo;
-    return todo.filter((el) => el.priority === filter); // iteration
+    return todo.filter((el) => el.priority === filter);
   }, [todo, filter]);
-
-  console.log("Render Page");
 
   return (
     <>
-      <button type="button" onClick={() => setIsOpen((p) => !p)}>
-        Change isOpen
-      </button>
       <ToDoForm addTodo={addTodo} />
       <PrioritySelect filter={filter} changeFilter={changePriority} />
       <ToDoList
@@ -40,9 +32,3 @@ const TodoPage = () => {
 };
 
 export default TodoPage;
-// HOC high order component
-
-// const useCb = (cb, deps) => {
-//   const cachedCb = useMemo(() => cb, deps);
-//   return cachedCb;
-// };

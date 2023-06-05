@@ -1,4 +1,4 @@
-import { Component, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import clsx from "clsx";
 import s from "./TodoItem.module.scss";
