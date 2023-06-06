@@ -1,24 +1,26 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+
+import CountryNewsNav from "../components/CountryNewsNav/CountryNewsNav";
+import { Suspense } from "react";
 
 const CountryNewsPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const prevLocation = location.state; // null
   return (
     <>
       <h1>CountryNewsPage</h1>
-      <ul>
-        <li>
-          <NavLink to={"ua"}>UA</NavLink>
-        </li>
-        <li>
-          <NavLink to={"pl"}>PL</NavLink>
-        </li>
-        <li>
-          <NavLink to={"us"}>US</NavLink>
-        </li>
-        <li>
-          <NavLink to={"fr"}>FR</NavLink>
-        </li>
-      </ul>
-      <Outlet />
+      <button
+        onClick={() => {
+          navigate(prevLocation);
+        }}
+      >
+        Go Back
+      </button>
+      <CountryNewsNav />
+      <Suspense fallback={<h2>Loading...</h2>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

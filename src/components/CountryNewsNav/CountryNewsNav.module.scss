@@ -1,0 +1,21 @@
+.list {
+  display: flex;
+  justify-content: center;
+  column-gap: 8px;
+  margin: 0 auto;
+}
+
+.link {
+  display: flex;
+  width: 60px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid blue;
+  border-radius: 4px;
+}
+
+.active {
+  border: 1px solid red;
+  color: red;
+}

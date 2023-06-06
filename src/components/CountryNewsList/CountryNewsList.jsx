@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import NewsList from "../NewsList/NewsList";
 import { getCountryNewsApi } from "../../services/newsApi";
 import { useParams } from "react-router-dom";
 import { useSetIsLoading } from "../../context/LoaderProvider";
@@ -21,18 +22,7 @@ const CountryNewsList = () => {
   return (
     <>
       <h2>News list - {country} </h2>
-      {error ? (
-        <h1>{error}</h1>
-      ) : (
-        <ul>
-          {news.map((el, idx) => (
-            <li key={el.url}>
-              <span>{idx + 1}. </span>
-              <a href={el.url}>{el.title}</a>
-            </li>
-          ))}
-        </ul>
-      )}
+      {error ? <h1>{error}</h1> : <NewsList news={news} />}
     </>
   );
 };

@@ -1,15 +1,15 @@
 # REACT BC_51
 
-## l-10.routes
+## l-11.navigate.code-spliting
 
-https://rozetka.com.ua/doc/v1/tshort/c2394297?color=red&size=l#321
 
-### 1.url structure
-### 2.BrowserRouter
-### 3.browser-history -> location | history - принцип роботи 
-### 4.Routes(path, inserted routes)
-### 5.Change url -> render page by path
-### 6.Link, NavLink, styled-component, activeLink
-### 7.Navigate
-### 8.Params, useParams
-### 9. Route - index, Outlet
+
+### 1.navigate -> useNavigate
+### 2.location
+### 3.useSearchParams
+### 4.pagination
+### 5.state
+### 6.code-spliting
+### 7.basename
+
+<!-- https://account.github.io/repository_name/movies -->

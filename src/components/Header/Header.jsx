@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import clsx from "clsx";
 import s from "./Header.module.scss";
@@ -12,6 +12,7 @@ const StyledNavLink = styled(NavLink)`
   padding: 16px 24px;
   font-size: 18px;
   border: 1px solid red;
+  border-radius: 8px;
   color: #fff;
 
   &.active {
@@ -21,27 +22,29 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
+const getActiveStyles = ({ isActive }) => clsx(s.link, isActive && s.active);
+
 const Header = () => {
+  const location = useLocation();
+  console.log("location :>> ", location);
   return (
     <header className={s.header}>
       <nav className={s.nav}>
-        <NavLink
-          className={({ isActive }) => clsx(s.link, isActive && s.active)}
-          //   style={({ isActive }) => (isActive ? { color: "red" } : {})}
-          to={"/"}
-        >
+        <NavLink className={getActiveStyles} to={"/"}>
           Home
         </NavLink>
         <StyledNavLink to={"/counter"}>Counter</StyledNavLink>
-        {/* <Link className={s.link} to={"/todo"}>Todo</Link> */}
-        <NavLink
-          className={({ isActive }) => clsx(s.link, isActive && s.active)}
-          //   className={s.link}
-          to={"/todo"}
-        >
+        <NavLink className={getActiveStyles} to={"/todo"}>
           Todo
         </NavLink>
-        <StyledNavLink to={"/country-news"}>CountryNews</StyledNavLink>
+        <StyledNavLink to={{ pathname: "/country-news" }} state={location}>
+          CountryNews
+        </StyledNavLink>
+        <StyledNavLink
+          to={{ pathname: "/search-news", search: "query=sun&page=1" }}
+        >
+          SearchNews
+        </StyledNavLink>
       </nav>
     </header>
   );
