@@ -1,5 +1,9 @@
 // import PropTypes from "prop-types";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { filterChange } from "../../redux/todo/todoActions";
+
 const selectStyles = {
   display: "block",
   width: "150px",
@@ -9,12 +13,14 @@ const selectStyles = {
   marginBottom: "12px",
 };
 
-const PrioritySelect = ({ filter, changeFilter }) => {
+const PrioritySelect = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.todo.filter);
   return (
     <select
       name="priority"
       style={selectStyles}
-      onChange={changeFilter}
+      onChange={(e) => dispatch(filterChange(e.target.value))}
       value={filter}
     >
       <option value="all">All</option>

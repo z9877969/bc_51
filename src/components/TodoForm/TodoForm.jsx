@@ -1,7 +1,9 @@
 import { memo, useState } from "react";
 
+import { addTodo } from "../../redux/todo/todoActions";
 import clsx from "clsx";
 import s from "./TodoForm.module.scss";
+import { useDispatch } from "react-redux";
 
 const initialState = {
   date: "2023-06-01",
@@ -9,13 +11,13 @@ const initialState = {
   priority: "",
 };
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     date: "2023-06-01",
     descr: "",
     priority: "",
   });
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +28,7 @@ const TodoForm = ({ addTodo }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTodo(form);
+    dispatch(addTodo({ ...form, isDone: false, id: Date.now() }));
     setForm(initialState);
   };
 
@@ -104,4 +106,4 @@ const TodoForm = ({ addTodo }) => {
   );
 };
 
-export default memo(TodoForm); 
+export default memo(TodoForm);

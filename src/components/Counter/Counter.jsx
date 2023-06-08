@@ -1,8 +1,15 @@
+import {
+  counterDecrementAction,
+  counterIncrementAction,
+  counterResetAction,
+} from "../../redux/counter/counterActions";
+import { useDispatch, useSelector } from "react-redux";
+
 import s from "./Counter.module.scss";
-import { useState } from "react";
 
 const Counter = () => {
-  const [count, setCount] = useState(0);
+  const dispatch = useDispatch();
+  const count = useSelector((state) => state.count);
 
   return (
     <div className={s.container}>
@@ -10,17 +17,21 @@ const Counter = () => {
       <p className={s.count}>{count}</p>
       <div className={s.btnsWrapper}>
         <button
-          onClick={() => setCount((prevCount) => prevCount - 20)}
+          onClick={() => dispatch(counterDecrementAction(35))}
           className={s.btn}
           type="button"
         >
           -
         </button>
-        <button onClick={() => setCount(0)} className={s.btn} type="button">
+        <button
+          onClick={() => dispatch(counterResetAction())}
+          className={s.btn}
+          type="button"
+        >
           0
         </button>
         <button
-          onClick={() => setCount((prevCount) => prevCount + 35)}
+          onClick={() => dispatch(counterIncrementAction(40))}
           className={s.btn}
           type="button"
         >

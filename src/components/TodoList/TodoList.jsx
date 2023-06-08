@@ -1,33 +1,24 @@
-import PropTypes from "prop-types";
 import TodoItem from "../TodoItem/TodoItem";
 import s from "./TodoList.module.scss";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
 
-const TodoList = ({ todo = [], removeTodo, updateTodoStatus }) => {
+const TodoList = () => {
+  const todo = useSelector((state) => state.todo.items);
+  const filter = useSelector((state) => state.todo.filter);
+
+  const filteredTodo = useMemo(() => {
+    if (filter === "all") return todo;
+    return todo.filter((el) => el.priority === filter);
+  }, [filter, todo]);
+
   return (
     <ul className={s.container}>
-      {todo.map((itemProps) => (
-        <TodoItem
-          key={itemProps.id}
-          {...itemProps}
-          removeTodo={removeTodo}
-          updateTodoStatus={updateTodoStatus}
-        />
+      {filteredTodo.map((itemProps) => (
+        <TodoItem key={itemProps.id} {...itemProps} />
       ))}
     </ul>
   );
-};
-
-TodoList.propTypes = {
-  todo: PropTypes.arrayOf(
-    PropTypes.shape({
-      date: PropTypes.string.isRequired,
-      descr: PropTypes.string.isRequired,
-      priority: PropTypes.string.isRequired,
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      isDone: PropTypes.bool.isRequired,
-    })
-  ),
-  removeTodo: PropTypes.func.isRequired,
 };
 
 export default TodoList;
