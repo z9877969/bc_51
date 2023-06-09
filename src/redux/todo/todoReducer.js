@@ -1,31 +1,56 @@
-import {
-  TODO_ADD,
-  TODO_CHANGE_FILTER,
-  TODO_REMOVE,
-  TODO_UPDATE_STATUS,
-} from "./todoConstants";
+import { addTodo, removeTodo, updateTodoStatus } from "./todoActions";
 
 import { combineReducers } from "redux";
+import { createReducer } from "@reduxjs/toolkit";
 import { todo } from "../../data/todo";
 
-const itemsReducer = (state = todo, { type, payload }) => {
-  switch (type) {
-    case TODO_ADD:
+// ...../pending | ...../rejected | ....../fulfilled
+
+const itemsReducer = createReducer(todo, (builder) => {
+  builder
+    .addCase(addTodo, (state, { payload }) => {
       return [...state, payload];
-    case TODO_REMOVE:
+    })
+    .addCase(removeTodo, (state, { payload }) => {
       return state.filter((el) => el.id !== payload);
-    case TODO_UPDATE_STATUS:
+    })
+    .addCase(updateTodoStatus, (state, { payload }) => {
       return state.map((el) =>
-        el.id !== payload ? el : { ...el, isDone: !el.isDone }
+        el.id === payload ? { ...el, isDone: !el.isDone } : el
       );
-    default:
-      return state;
-  }
-};
+    });
+});
+
+const isLoadinReducer = createReducer(false, (builder) => {
+  builder
+    .addMatcher(
+      (action) => {
+        if (action.type.endsWith("/pending")) {
+          return true;
+        }
+        return false;
+      },
+      () => {
+        return true;
+      }
+    )
+    .addMatcher(
+      (action) => {
+        if (
+          action.type.endsWith("/fulfilled") ||
+          action.type.endsWith("/rejected")
+        ) {
+          return true;
+        }
+        return false;
+      },
+      () => false
+    );
+});
 
 const filterReducer = (state = "all", action) => {
   switch (action.type) {
-    case TODO_CHANGE_FILTER:
+    case "todo/change/filter":
       return action.payload;
     default:
       return state;
@@ -35,6 +60,7 @@ const filterReducer = (state = "all", action) => {
 const todoReducer = combineReducers({
   items: itemsReducer,
   filter: filterReducer,
+  isLoading: isLoadinReducer,
 });
 
 export default todoReducer;

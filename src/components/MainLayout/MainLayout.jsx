@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const BgWrapper = ({ children }) => {
   return (
-    <div style={{ backgroundColor: "grey", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "khaki", minHeight: "100vh" }}>
       {children}
     </div>
   );

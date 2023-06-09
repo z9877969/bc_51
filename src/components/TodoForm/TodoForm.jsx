@@ -1,5 +1,6 @@
 import { memo, useState } from "react";
 
+import { actions } from "../../redux/todo/todoSlice";
 import { addTodo } from "../../redux/todo/todoActions";
 import clsx from "clsx";
 import s from "./TodoForm.module.scss";
@@ -28,12 +29,22 @@ const TodoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addTodo({ ...form, isDone: false, id: Date.now() }));
+    // dispatch(addTodo({ ...form, isDone: false, id: Date.now() }));
+    dispatch(actions.add(form));
     setForm(initialState);
   };
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
+      <button type="button" onClick={() => dispatch({ type: "..../pending" })}>
+        Start pending
+      </button>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: "..../fulfilled" })}
+      >
+        Finish pending
+      </button>
       <label className={s.label}>
         <span> Date </span>
         <input

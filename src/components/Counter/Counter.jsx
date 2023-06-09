@@ -1,10 +1,6 @@
-import {
-  counterDecrementAction,
-  counterIncrementAction,
-  counterResetAction,
-} from "../../redux/counter/counterActions";
 import { useDispatch, useSelector } from "react-redux";
 
+import { actions } from "../../redux/counter/counterSlice";
 import s from "./Counter.module.scss";
 
 const Counter = () => {
@@ -17,21 +13,21 @@ const Counter = () => {
       <p className={s.count}>{count}</p>
       <div className={s.btnsWrapper}>
         <button
-          onClick={() => dispatch(counterDecrementAction(35))}
+          onClick={() => dispatch(actions.decrement(35))}
           className={s.btn}
           type="button"
         >
           -
         </button>
         <button
-          onClick={() => dispatch(counterResetAction())}
+          onClick={() => dispatch(actions.reset())}
           className={s.btn}
           type="button"
         >
           0
         </button>
         <button
-          onClick={() => dispatch(counterIncrementAction(40))}
+          onClick={() => dispatch(actions.increment(40))}
           className={s.btn}
           type="button"
         >

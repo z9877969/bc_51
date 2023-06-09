@@ -1,50 +1,51 @@
-import { combineReducers, createStore } from "redux";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
+} from "redux-persist";
 
-import counterReducer from "./counter/counterReducer";
-import { devToolsEnhancer } from "@redux-devtools/extension";
-import todoReducer from "./todo/todoReducer";
+import { configureStore } from "@reduxjs/toolkit";
+// import counterReducer from "./counter/counterReducer";
+import counterReducer from "./counter/counterSlice";
+import storage from "redux-persist/lib/storage";
+// import todoReducer from "./todo/todoReducer";
+import todoReducer from "./todo/todoSlice";
 
-// const reducer = (
-//   state = { a: 21, b: "qwe", c: { isOpen: true, color: "red" } },
-//   action
-// ) => {
-//   if (action.type === "changeA") {
-//     return { ...state, a: 40 };
-//   }
-//   if (action.type === "changeB") {
-//     return { ...state, b: "qwered" };
-//   }
-//   if (action.type === "changeIsOpen") {
-//     return { ...state, c: { ...state.c, isOpen: false } };
-//   }
-//   return state;
-// };
-
-const reducerA = (state = 21, action) => {
-  if (action.type === "changeA") {
-    return 40;
-  }
-  return state; // 21
-};
-const reducerB = (state = "qwe", action) => {
-  if (action.type === "changeB") {
-    return "qwered";
-  }
-  return state; // "qwe"
-};
-const reducerC = (state = { isOpen: true, color: "red" }, action) => {
-  if (action.type === "changeIsOpen") {
-    return { ...state, isOpen: false };
-  }
-  return state; // { isOpen: true, color: "red" }
+const persistTodoConfig = {
+  key: "todo",
+  version: 1,
+  storage,
+  // whitelist: ["items"],
+  blacklist: ["filter"],
 };
 
-const rootReducer = combineReducers({
-  count: counterReducer, // 50
-  todo: todoReducer,
-  a: reducerA,
-  b: reducerB,
-  c: reducerC,
+const persistedTodoReducer = persistReducer(persistTodoConfig, todoReducer);
+
+export const store = configureStore({
+  // reducer: rootReducer,
+  reducer: {
+    count: counterReducer,
+    todo: persistedTodoReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+  // preloadedState: {
+  //   count: 0,
+  //   todo: {
+  //     items: [],
+  //     filter: "medium",
+  //   },
+  // },
+  devTools: process.env.NODE_ENV === "development",
 });
 
-export const store = createStore(rootReducer, devToolsEnhancer());
+export const persistor = persistStore(store);

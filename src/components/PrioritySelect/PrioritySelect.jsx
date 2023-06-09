@@ -2,6 +2,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 
+import { actions } from "../../redux/todo/todoSlice";
 import { filterChange } from "../../redux/todo/todoActions";
 
 const selectStyles = {
@@ -20,7 +21,7 @@ const PrioritySelect = () => {
     <select
       name="priority"
       style={selectStyles}
-      onChange={(e) => dispatch(filterChange(e.target.value))}
+      onChange={(e) => dispatch(actions.changeFilter(e.target.value))}
       value={filter}
     >
       <option value="all">All</option>

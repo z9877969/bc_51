@@ -1,17 +1,7 @@
-import { COUNTER_DECREMENT, COUNTER_INCREMENT, COUNTER_RESET } from "./counterConstants";
+import { createAction } from "@reduxjs/toolkit";
 
-export const counterDecrementAction = (value) => {
-  return {
-    type: COUNTER_DECREMENT,
-    payload: value,
-  };
-};
+export const counterDecrementAction = createAction("counter/decrement"); //
 
-export const counterIncrementAction = (value) => ({
-  type: COUNTER_INCREMENT,
-  payload: value,
-});
+export const counterIncrementAction = createAction("counter/increment");
 
-export const counterResetAction = () => ({
-  type: COUNTER_RESET,
-});
+export const counterResetAction = createAction("conter/reset");
