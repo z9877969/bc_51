@@ -12,7 +12,7 @@ const counterSlice = createSlice({
     },
     reset: () => 190,
   },
-}); // {reducer, actions: {incrementAction}} -> incrementAction() -> {type: qwe/incrementAction}
+});
 
 export const { actions } = counterSlice;
 

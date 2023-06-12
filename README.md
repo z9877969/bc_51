@@ -1,12 +1,11 @@
 # REACT BC_51
 
-## l-14.redux-toolkit
+## Lesson-15(middlewares.async-redux)
 
+### 0.[принцип роботи middlewares](https://d33wubrfki0l68.cloudfront.net/08d01ed85246d3ece01963408572f3f6dfb49d41/4bc12/assets/images/reduxasyncdataflowdiagram-d97ff38a0f4da0f327163170ccc13e80.gif)
 
-### 1.configureStore (reducer, middlewares, preloadState, devtools)
-### 2.createReducer (addCase, addMatcher, addDefaultCase)
-### 3.createAction
-### 4.createSlice (reducers, prepare)
-### 5.redux-persist
-
-### [Схема з принципом роботи](https://camo.githubusercontent.com/5aba89b6daab934631adffc1f301d17bb273268b/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6d656469612d702e736c69642e65732f75706c6f6164732f3336343831322f696d616765732f323438343535322f415243482d5265647578322d7265616c2e676966)
+### 1. middlewares - принцип роботи, підключення - logger
+### 2. реалізація запитів в redux на компонентах -> структура запитів(request, success, error)
+### 3. вирішення запитів для бібліотеки управління станом - middlewares:
+###    - redux-thunk 
+### 4. operation

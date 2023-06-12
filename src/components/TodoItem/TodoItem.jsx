@@ -1,4 +1,4 @@
-import { removeTodo, updateTodoStatus } from "../../redux/todo/todoActions";
+import { removeTodo, updateTodoStatus } from "../../redux/todo/todoOpertions";
 import { useEffect, useState } from "react";
 
 import { actions } from "../../redux/todo/todoSlice";
@@ -35,16 +35,13 @@ const TodoItem = ({ title, descr, id, date, priority, isDone }) => {
           type="checkbox"
           name="status"
           onChange={(e) => {
-            dispatch(actions.updateStatus(id));
+            dispatch(updateTodoStatus(id, { isDone: e.target.checked }));
           }}
           checked={isDone}
         />
         Done
       </label>
-      <button
-        className={s.todoBtn}
-        onClick={(e) => dispatch(actions.remove(id))}
-      >
+      <button className={s.todoBtn} onClick={(e) => dispatch(removeTodo(id))}>
         Remove
       </button>
     </li>

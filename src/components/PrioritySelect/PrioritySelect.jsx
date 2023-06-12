@@ -1,9 +1,6 @@
-// import PropTypes from "prop-types";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import { actions } from "../../redux/todo/todoSlice";
-import { filterChange } from "../../redux/todo/todoActions";
 
 const selectStyles = {
   display: "block",

@@ -1,51 +1,46 @@
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-  persistReducer,
-  persistStore,
-} from "redux-persist";
-
 import { configureStore } from "@reduxjs/toolkit";
-// import counterReducer from "./counter/counterReducer";
 import counterReducer from "./counter/counterSlice";
-import storage from "redux-persist/lib/storage";
-// import todoReducer from "./todo/todoReducer";
+// import reduxLogger from "redux-logger";
 import todoReducer from "./todo/todoSlice";
 
-const persistTodoConfig = {
-  key: "todo",
-  version: 1,
-  storage,
-  // whitelist: ["items"],
-  blacklist: ["filter"],
+const customLogger = ({ getState, dispatch }) => {
+  return (next) => {
+    return (action) => {
+      console.group("action", action.type);
+
+      const prevState = getState();
+      console.log("prevState :>> ", prevState);
+      console.log("action :>> ", action);
+      next(action);
+      const nextState = getState();
+
+      console.log("nextState :>> ", nextState);
+
+      console.groupEnd();
+    };
+  };
 };
 
-const persistedTodoReducer = persistReducer(persistTodoConfig, todoReducer);
+// const reduxThunk = (store) => {
+//   return (next) => {
+//     return (action) => {
+//       if (typeof action === "function") {
+//         action(store.dispatch, store.getState);
+//         return;
+//       }
+//       next(action);
+//     };
+//   };
+// };
+
+// customLogger(store)(next)(action)
 
 export const store = configureStore({
-  // reducer: rootReducer,
   reducer: {
     count: counterReducer,
-    todo: persistedTodoReducer,
+    todo: todoReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-  // preloadedState: {
-  //   count: 0,
-  //   todo: {
-  //     items: [],
-  //     filter: "medium",
-  //   },
-  // },
-  devTools: process.env.NODE_ENV === "development",
+  // middleware: [reduxThunk],
+  middleware: (getDefaultMiddlewares) =>
+    getDefaultMiddlewares().concat(customLogger),
 });
-
-export const persistor = persistStore(store);

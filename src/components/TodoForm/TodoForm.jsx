@@ -1,7 +1,6 @@
 import { memo, useState } from "react";
 
-import { actions } from "../../redux/todo/todoSlice";
-import { addTodo } from "../../redux/todo/todoActions";
+import { addTodo } from "../../redux/todo/todoOpertions";
 import clsx from "clsx";
 import s from "./TodoForm.module.scss";
 import { useDispatch } from "react-redux";
@@ -27,10 +26,10 @@ const TodoForm = () => {
     });
   };
 
+  // request | success | error
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(addTodo({ ...form, isDone: false, id: Date.now() }));
-    dispatch(actions.add(form));
+    dispatch(addTodo({ ...form, isDone: false })); // (dispatch) => {...}
     setForm(initialState);
   };
 

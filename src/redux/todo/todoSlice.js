@@ -1,41 +1,67 @@
+import { actions as counterActions } from "../counter/counterSlice";
 import { createSlice } from "@reduxjs/toolkit";
-import { todo } from "../../data/todo";
 
 const todoSlice = createSlice({
   name: "todo",
   initialState: {
-    items: todo,
+    items: [],
     filter: "all",
+    isLoading: false,
+    error: null,
   },
+  // stateRef1 === stateRef2
   reducers: {
-    // add: (state, { payload }) => {
-    //   //   return {
-    //   //     ...state,
-    //   //     items: [...state.items, payload],
-    //   //   };
-    //   state.items.push(payload);
-    // },
-    add: {
-      reducer: (state, { payload }) => {
-        state.items.push(payload);
-      },
-      prepare: (form) => {
-        return {
-          payload: {
-            ...form,
-            isDone: false,
-            id: Date.now(),
-          },
-        };
-      },
+    addRequest(state) {
+      state.isLoading = true;
     },
-    remove: (state, { payload }) => {
+    addSuccess(state, { payload }) {
+      state.isLoading = false;
+      state.error = null;
+      state.items.push(payload);
+    },
+    addError(state, { payload }) {
+      state.isLoading = false;
+      state.error = payload;
+    },
+    getRequest(state) {
+      state.isLoading = true;
+    },
+    getSuccess(state, { payload }) {
+      state.isLoading = false;
+      state.error = null;
+      state.items = payload;
+    },
+    getError(state, { payload }) {
+      state.isLoading = false;
+      state.error = payload;
+    },
+    removeRequest(state) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    removeSuccess(state, { payload }) {
+      state.isLoading = false;
+      state.error = null;
       state.items = state.items.filter((el) => el.id !== payload);
     },
-    updateStatus: (state, { payload }) => {
-      const updatedItemsIdx = state.items.findIndex((el) => el.id === payload);
-      state.items[updatedItemsIdx].isDone =
-        !state.items[updatedItemsIdx].isDone;
+    removeError(state, { payload }) {
+      state.isLoading = false;
+      state.error = payload;
+    },
+
+    updateStatusRequest(state) {
+      state.isLoading = true;
+    },
+    updateStatusSuccess(state, { payload }) {
+      const { isDone, id } = payload;
+      state.isLoading = false;
+      state.error = null;
+      const updatedItemsIdx = state.items.findIndex((el) => el.id === id);
+      state.items[updatedItemsIdx].isDone = isDone;
+    },
+    updateStatusError(state, { payload }) {
+      state.isLoading = false;
+      state.error = payload;
     },
     changeFilter: (state, { payload }) => {
       state.filter = payload;
