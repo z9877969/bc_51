@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { actions } from "../../redux/todo/todoSlice";
+import { selectTodoFilter } from "../../redux/todo/todoSelectors";
 
 const selectStyles = {
   display: "block",
@@ -13,7 +14,7 @@ const selectStyles = {
 
 const PrioritySelect = () => {
   const dispatch = useDispatch();
-  const filter = useSelector((state) => state.todo.filter);
+  const filter = useSelector(selectTodoFilter);
   return (
     <select
       name="priority"

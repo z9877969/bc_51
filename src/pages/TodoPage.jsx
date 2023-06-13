@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import PrioritySelect from "../components/PrioritySelect/PrioritySelect";
 import ToDoForm from "../components/TodoForm/TodoForm";
 import ToDoList from "../components/TodoList/TodoList";
+import { actions } from "../redux/counter/counterSlice";
 import { getTodo } from "../redux/todo/todoOpertions";
+import { selectCount } from "../redux/counter/counterSelectors";
+import { selectIsTodoExist } from "../redux/todo/todoSelectors";
 
 const TodoPage = () => {
   const dispatch = useDispatch();
-  const isTodoExist = useSelector((state) => state.todo.items.length > 0);
-  const [isOpen, setIsOpen] = useState(false);
+  const isTodoExist = useSelector(selectIsTodoExist);
+ 
 
   useEffect(() => {
     !isTodoExist && dispatch(getTodo());
@@ -17,8 +20,7 @@ const TodoPage = () => {
 
   return (
     <>
-      {isOpen && <h1>Modal - {`${isOpen}`}</h1>}
-      <button onClick={() => setIsOpen((p) => !p)}>Toggle modal</button>
+      
       <ToDoForm />
       <PrioritySelect />
       <ToDoList />
