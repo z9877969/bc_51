@@ -1,11 +1,9 @@
 import { memo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
-import { actions } from "../../redux/counter/counterSlice";
 import { addTodo } from "../../redux/todo/todoOpertions";
 import clsx from "clsx";
 import s from "./TodoForm.module.scss";
-import { selectCount } from "../../redux/counter/counterSelectors";
+import { useDispatch } from "react-redux";
 
 const initialState = {
   date: "2023-06-01",
@@ -15,7 +13,6 @@ const initialState = {
 
 const TodoForm = () => {
   const dispatch = useDispatch();
-  const count = useSelector(selectCount);
   const [form, setForm] = useState({
     date: "2023-06-01",
     descr: "",
@@ -37,11 +34,6 @@ const TodoForm = () => {
 
   return (
     <>
-      {count && <h1>Counter Modal - {`${count}`}</h1>}
-      <button onClick={() => dispatch(actions.increment(20))}>
-        Increment counter
-      </button>
-
       <form className={s.form} onSubmit={handleSubmit}>
         <label className={s.label}>
           <span> Date </span>

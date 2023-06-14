@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { removeTodo } from "../todo/todoOpertions";
 
 const counterSlice = createSlice({
   name: "counter",

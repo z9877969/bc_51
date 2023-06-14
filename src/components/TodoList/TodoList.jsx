@@ -6,8 +6,6 @@ import { useSelector } from "react-redux";
 const TodoList = () => {
   const filteredTodo = useSelector(selectFilteredTodo);
 
-  console.log("Render TodoList");
-
   return (
     <ul className={s.container}>
       {filteredTodo.map((itemProps) => (
