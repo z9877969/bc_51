@@ -1,7 +1,7 @@
 # REACT BC_51
 
-## Lesson-17(auth)
+## Lesson-18(restricted-routes.error-handler)
 
-### 1. auth | token
-### 2. AuthForm
-### 3. persist token
+### 1. Public/Private routes
+### 2. todo requests
+### 3. refreshToken | error handler

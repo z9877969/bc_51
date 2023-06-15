@@ -9,11 +9,10 @@ import { useEffect } from "react";
 
 const TodoPage = () => {
   const dispatch = useDispatch();
-  const isTodoExist = useSelector(selectIsTodoExist);
 
   useEffect(() => {
-    !isTodoExist && dispatch(getTodo());
-  }, [dispatch, isTodoExist]);
+    dispatch(getTodo());
+  }, [dispatch]);
 
   return (
     <>

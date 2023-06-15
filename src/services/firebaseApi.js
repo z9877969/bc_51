@@ -1,5 +1,3 @@
-// '/message_list.json'
-
 import axios from "axios";
 
 const API_KEY = "AIzaSyAw3wCum4rVwVzGPGPbRjIvLjk0l7mZ7fI";
@@ -7,12 +5,10 @@ const API_KEY = "AIzaSyAw3wCum4rVwVzGPGPbRjIvLjk0l7mZ7fI";
 const baseUrl = {
   AUTH: "https://identitytoolkit.googleapis.com/v1",
   DB: "https://bc-51-a26cd-default-rtdb.europe-west1.firebasedatabase.app",
+  REFRESH_TOKEN: "https://securetoken.googleapis.com/v1",
 };
 
 const setBaseUrl = (url) => (axios.defaults.baseURL = url);
-// const setToken = (token) =>
-//   (axios.defaults.headers.common.Authorization = `Bearer ${token}`);
-// const unsetToken = () => (axios.defaults.headers.common.Authorization = ``);
 
 export const addTodoApi = ({ todo, localId, idToken }) => {
   return axios
@@ -24,10 +20,9 @@ export const addTodoApi = ({ todo, localId, idToken }) => {
     .then((response) => {
       const { name } = response.data;
       return { ...todo, id: name };
-    }); // {descr, date, priority, id}
+    });
 };
 
-// "https://<DATABASE_NAME>.firebaseio.com/users/localId/name.json?auth=<ID_TOKEN>"
 export const getTodoApi = ({ localId, idToken }) => {
   setBaseUrl(baseUrl.DB);
   return axios
@@ -46,17 +41,38 @@ export const getTodoApi = ({ localId, idToken }) => {
     });
 };
 
-export const removeTodoApi = (id) => {
-  return axios.delete(`/todo/${id}.json`).then((res) => res.data);
+export const getUserRoleApi = ({ localId, idToken }) => {
+  setBaseUrl(baseUrl.DB);
+  return axios
+    .get(`/users/${localId}/role.json`, {
+      params: {
+        auth: idToken,
+      },
+    })
+    .then((res) => res.data);
 };
 
-export const updateTodoStatusApi = (id, body) => {
+export const removeTodoApi = ({ id, localId, idToken }) => {
+  setBaseUrl(baseUrl.DB);
   return axios
-    .patch(`/todo/${id}.json`, body)
+    .delete(`/users/${localId}/todo/${id}.json`, {
+      params: {
+        auth: idToken,
+      },
+    })
+    .then((res) => res.data);
+};
+
+export const updateTodoStatusApi = ({ id, body, localId, idToken }) => {
+  return axios
+    .patch(`/users/${localId}/todo/${id}.json`, body, {
+      params: {
+        auth: idToken,
+      },
+    })
     .then((res) => ({ ...res.data, id })); // {isDone: true}
 };
 
-// https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
 export const registerUserApi = ({ email, password }) => {
   setBaseUrl(baseUrl.AUTH);
   return axios
@@ -79,7 +95,6 @@ export const registerUserApi = ({ email, password }) => {
     });
 };
 
-// https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
 export const loginUserApi = ({ email, password }) => {
   setBaseUrl(baseUrl.AUTH);
   return axios
@@ -99,7 +114,6 @@ export const loginUserApi = ({ email, password }) => {
     });
 };
 
-// https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=[API_KEY]
 export const getCurUserApi = (idToken) => {
   setBaseUrl(baseUrl.AUTH);
   return axios
@@ -115,3 +129,34 @@ export const getCurUserApi = (idToken) => {
       return { localId, email };
     });
 };
+
+// https://securetoken.googleapis.com/v1/token?key=[API_KEY]
+export const refreshTokenApi = (refreshToken) => {
+  setBaseUrl(baseUrl.REFRESH_TOKEN);
+  return axios
+    .post(
+      "/token",
+      {
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+      },
+      {
+        params: {
+          key: API_KEY,
+        },
+      }
+    )
+    .then(({ data }) => {
+      const { refresh_token, id_token } = data;
+      return { idToken: id_token, refreshToken: refresh_token };
+    });
+};
+
+// {
+//   "expires_in": "3600",
+//   "token_type": "Bearer",
+//   "refresh_token": "[REFRESH_TOKEN]",
+//   "id_token": "[ID_TOKEN]",
+//   "user_id": "tRcfmLH7o2XrNELi...",
+//   "project_id": "1234567890"
+// }

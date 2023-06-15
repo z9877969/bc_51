@@ -18,7 +18,7 @@ import todoReducer from "./todo/todoSlice";
 const authPersistConfig = {
   key: "token",
   storage,
-  whitelist: ["idToken"],
+  whitelist: ["idToken", "refreshToken"],
 };
 
 const authPersistReducer = persistReducer(authPersistConfig, authReducer);

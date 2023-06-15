@@ -1,19 +1,19 @@
 import { HeaderNav, StyledHeader, StyledNavLink } from "./Header.styled";
-import { useDispatch, useSelector } from "react-redux";
 
 import { actions } from "../../redux/auth/authSlice";
-import { selectIsAuth } from "../../redux/auth/authSelectors";
+import { useDispatch } from "react-redux";
+import { useUserStatus } from "../../hooks/useUserStatus";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const isAuth = useSelector(selectIsAuth);
+  const { isAuth, isBuyer } = useUserStatus();
   return (
     <StyledHeader>
       <HeaderNav>
         <StyledNavLink to="/">Home</StyledNavLink>
         {isAuth ? (
           <>
-            <StyledNavLink to="/counter">Counter</StyledNavLink>
+            {!isBuyer && <StyledNavLink to="/counter">Counter</StyledNavLink>}
             <StyledNavLink to="/todo">Todo</StyledNavLink>
           </>
         ) : (

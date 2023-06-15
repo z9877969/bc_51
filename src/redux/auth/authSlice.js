@@ -1,14 +1,16 @@
 import {
   getCurUser,
+  getUserRole,
   loginUser,
+  refreshToken,
   registerUser,
-  testOperation,
 } from "./authOperations";
 
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuth: false,
+  role: null,
   idToken: null,
   email: null,
   refreshToken: null,
@@ -73,6 +75,32 @@ const authSlice = createSlice({
       .addCase(getCurUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
+      })
+      .addCase(getUserRole.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserRole.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        state.role = payload;
+      })
+      .addCase(getUserRole.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+      .addCase(refreshToken.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(refreshToken.fulfilled, (state, { payload }) => {
+        const { idToken, refreshToken } = payload;
+        state.isLoading = false;
+        state.error = null;
+        state.idToken = idToken;
+        state.refreshToken = refreshToken;
+      })
+      .addCase(refreshToken.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
       });
   },
 });
