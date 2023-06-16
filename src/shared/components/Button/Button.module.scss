@@ -1,0 +1,31 @@
+.button {
+  padding: 12px 30px;
+  font-size: 24px;
+  line-height: 1.2;
+  border: none;
+  background: none;
+  border-radius: 8px;
+}
+
+.ouline {
+  border-width: 1px;
+  border-style: solid;
+
+  &.success {
+    border-color: blue;
+    background-color: #add8e650;
+  }
+  &.warning {
+    border-color: orange;
+    background-color: #ffffe050;
+  }
+  &.error {
+    border-color: red;
+    background-color: #f0808050;
+  }
+}
+
+.icon {
+  height: calc(24px * 1.2);
+  width: auto;
+}

@@ -1,4 +1,4 @@
-import Header from "../Header/Header";
+import { Header } from "../../modules";
 import { Outlet } from "react-router-dom";
 
 const BgWrapper = ({ children }) => {

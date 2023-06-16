@@ -1,9 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { getCurUser, getUserRole } from "../../redux/auth/authOperations";
-import {
-  selectIdToken,
-  selectIsUserExist,
-} from "../../redux/auth/authSelectors";
 import { useDispatch, useSelector } from "react-redux";
 
 import CounterPage from "../../pages/CounterPage";
@@ -15,6 +11,7 @@ import PublicRoute from "../../containers/PublicRoute";
 import RegisterPage from "../../pages/RegisterPage";
 import TodoPage from "../../pages/TodoPage";
 import WithoutBuyerPrivateRoute from "../../containers/WithoutBuyerPrivateRoute";
+import { selectIsUserExist } from "../../redux/auth/authSelectors";
 import { useEffect } from "react";
 
 const App = () => {

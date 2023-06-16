@@ -1,10 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-
 import PrioritySelect from "../components/PrioritySelect/PrioritySelect";
 import ToDoForm from "../components/TodoForm/TodoForm";
 import ToDoList from "../components/TodoList/TodoList";
 import { getTodo } from "../redux/todo/todoOpertions";
-import { selectIsTodoExist } from "../redux/todo/todoSelectors";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 const TodoPage = () => {

@@ -6,7 +6,6 @@ import {
   registerUserApi,
 } from "../../services/firebaseApi";
 
-import { actions } from "./authSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { errorHandler } from "../error/errorHandler";
 
@@ -42,9 +41,6 @@ export const getCurUser = createAsyncThunk(
       const data = await getCurUserApi(idToken);
       return data;
     } catch (error) {
-      // setTimeout(() => {
-      //   thunkApi.dispatch(actions.logout());
-      // });
       thunkApi.dispatch(errorHandler({ error, cb: getCurUser }));
       return thunkApi.rejectWithValue(error.message);
     }

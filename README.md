@@ -1,7 +1,7 @@
 # REACT BC_51
 
-## Lesson-18(restricted-routes.error-handler)
+## Lesson-19(QA.finally)
 
-### 1. Public/Private routes
-### 2. todo requests
-### 3. refreshToken | error handler
+### 1. react === constructor 
+### 2. ui components
+### 3. modules 
